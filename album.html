@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="mn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Зургийн Цомог</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .photo-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .modal-img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 5px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .modal-close:hover {
+            background: #f0f0f0;
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 15px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>📸 Зургийн Цомог</h1>
+        <div class="gallery" id="gallery"></div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <img src="" alt="Photo" class="modal-img" id="modalImg">
+        </div>
+    </div>
+
+    <script>
+        // images/ хавтсан дахь зургуудын жагсаалт
+        // Та энд өөрийн зургуудын нэрсийг оруулна уу
+        const images = [
+            'images/0.jpeg',
+            'images/1.jpeg',
+            'images/2.jpeg',
+            'images/3.jpeg',
+            'images/4.jpeg',
+            'images/5.jpeg',
+            'images/6.jpeg',
+            'images/7.jpeg',
+            'images/8.jpeg',
+            'images/9.jpeg',
+            'images/10.jpeg',
+            'images/11.jpeg',
+        ];
+
+        // Gallery үүсгэх
+        const gallery = document.getElementById('gallery');
+
+        images.forEach((imgSrc, index) => {
+            const card = document.createElement('div');
+            card.className = 'photo-card';
+            card.innerHTML = `<img src="${imgSrc}" alt="Photo ${index + 1}" onclick="openModal('${imgSrc}')">`;
+            gallery.appendChild(card);
+        });
+
+        // Modal нээх
+        function openModal(imgSrc) {
+            const modal = document.getElementById('modal');
+            const modalImg = document.getElementById('modalImg');
+            modalImg.src = imgSrc;
+            modal.classList.add('active');
+        }
+
+        // Modal хаах
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        // ESC товчлуураар хаах
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Гаднах хэсэгт дарж хаах
+        document.getElementById('modal').addEventListener('click', (e) => {
+            if (e.target.id === 'modal') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+
+</html>

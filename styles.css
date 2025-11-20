@@ -7,8 +7,10 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
+    /*background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);*/
+    background: url(images/background.jpeg) no-repeat center center fixed;
+    background-size: cover;
+    background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -109,8 +111,16 @@ body {
     background: #000000;
 }
 
-.social-btn.twitter {
-    background: #1da1f2;
+.social-btn.threads {
+    background: linear-gradient(45deg, #0b0a08 0%, #3d3d3d 25%, #4d4d4d 50%, #4b4b4b 75%, #000000 100%);
+}
+
+.social-btn.pinterest {
+    background: #bd081c;
+}
+
+.social-btn.linkedin {
+    background: #0a66c2;
 }
 
 /* Main Links */
@@ -191,6 +201,7 @@ body {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);

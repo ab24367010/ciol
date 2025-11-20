@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="mn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyStore - Онлайн Дэлгүүр</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #212529;
+            background-color: #f8f9fa;
+        }
+
+        /* Header Styles */
+        .top-bar {
+            background-color: #212529;
+            color: white;
+            padding: 8px 0;
+            font-size: 0.85em;
+        }
+
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        .top-bar a:hover {
+            color: #ffc107;
+        }
+
+        .main-header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #714b67;
+        }
+
+        .logo span {
+            color: #875a7b;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 30px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: #875a7b;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .header-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.5em;
+            color: #714b67;
+            transition: color 0.3s;
+        }
+
+        .header-icon:hover {
+            color: #875a7b;
+        }
+
+        .badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #dc3545;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7em;
+        }
+
+        /* Navigation */
+        .navigation {
+            background-color: #875a7b;
+            padding: 0;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-menu li {
+            position: relative;
+        }
+
+        .nav-menu a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 25px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            background-color: #714b67;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            background: linear-gradient(135deg, #875a7b 0%, #714b67 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .hero-banner h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .hero-banner p {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #ffc107;
+            color: #212529;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Categories */
+        .categories {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2em;
+            color: #714b67;
+            margin-bottom: 40px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-image {
+            height: 200px;
+            background: linear-gradient(135deg, #875a7b 0%, #714b67 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+        }
+
+        .category-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .category-info h3 {
+            color: #714b67;
+            margin-bottom: 10px;
+        }
+
+        /* Products */
+        .products {
+            margin-bottom: 50px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-image {
+            height: 280px;
+            background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5em;
+            position: relative;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #dc3545;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.3em;
+            font-weight: bold;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-title {
+            color: #714b67;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .product-description {
+            color: #6c757d;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .product-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 1.5em;
+            color: #875a7b;
+            font-weight: bold;
+        }
+
+        .old-price {
+            color: #6c757d;
+            text-decoration: line-through;
+            font-size: 0.9em;
+        }
+
+        .rating {
+            color: #ffc107;
+            font-size: 0.9em;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 12px;
+            background-color: #875a7b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background-color: #714b67;
+        }
+
+        /* Features */
+        .features {
+            background-color: white;
+            padding: 60px 0;
+            margin-bottom: 50px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .feature-item {
+            padding: 20px;
+        }
+
+        .feature-icon {
+            font-size: 3em;
+            color: #875a7b;
+            margin-bottom: 15px;
+        }
+
+        .feature-item h3 {
+            color: #714b67;
+            margin-bottom: 10px;
+        }
+
+        .feature-item p {
+            color: #6c757d;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #212529;
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            color: #ffc107;
+            margin-bottom: 20px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #495057;
+            color: #adb5bd;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .search-bar {
+                margin: 0;
+                max-width: 100%;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+            }
+
+            .hero-banner h1 {
+                font-size: 2em;
+            }
+
+            .hero-banner p {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div>📧 info@mystore.mn | ☎️ +976 7777-7777</div>
+            <div>
+                <a href="#">Нэвтрэх</a>
+                <a href="#">Бүртгүүлэх</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    My<span>Store</span>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="🔍 Бүтээгдэхүүн хайх...">
+                </div>
+                <div class="header-icons">
+                    <div class="header-icon">
+                        👤
+                    </div>
+                    <div class="header-icon">
+                        ❤️
+                        <span class="badge">3</span>
+                    </div>
+                    <div class="header-icon">
+                        🛒
+                        <span class="badge">5</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navigation">
+        <div class="container">
+            <ul class="nav-menu">
+                <li><a href="#">Нүүр</a></li>
+                <li><a href="#">Бүтээгдэхүүн</a></li>
+                <li><a href="#">Ангилал</a></li>
+                <li><a href="#">Хямдрал</a></li>
+                <li><a href="#">Шинэ бараа</a></li>
+                <li><a href="#">Холбоо барих</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+        <div class="container">
+            <h1>🎉 Шинэ улирлын хямдрал</h1>
+            <p>Бүх бүтээгдэхүүнд 50% хүртэл хөнгөлөлт</p>
+            <a href="#" class="btn">Дэлгэрэнгүй үзэх</a>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">📋 Ангилал</h2>
+            <div class="category-grid">
+                <div class="category-card">
+                    <div class="category-image">👔</div>
+                    <div class="category-info">
+                        <h3>Хувцас</h3>
+                        <p>200+ бүтээгдэхүүн</p>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-image">💻</div>
+                    <div class="category-info">
+                        <h3>Электроникс</h3>
+                        <p>150+ бүтээгдэхүүн</p>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-image">📚</div>
+                    <div class="category-info">
+                        <h3>Ном</h3>
+                        <p>300+ бүтээгдэхүүн</p>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-image">⚽</div>
+                    <div class="category-info">
+                        <h3>Спорт</h3>
+                        <p>180+ бүтээгдэхүүн</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="products">
+        <div class="container">
+            <h2 class="section-title">⭐ Онцлох бүтээгдэхүүн</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        👕
+                        <span class="product-badge">-30%</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Эрэгтэй цамц</h3>
+                        <p class="product-description">Чанартай хөвөн даавуугаар хийсэн, өдөр тутмын хувцас</p>
+                        <div class="rating">⭐⭐⭐⭐⭐ (24 үнэлгээ)</div>
+                        <div class="product-price">
+                            <div>
+                                <span class="price">89,000₮</span>
+                                <span class="old-price">127,000₮</span>
+                            </div>
+                        </div>
+                        <button class="add-to-cart">🛒 Сагсанд нэмэх</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        💻
+                        <span class="product-badge">ШИН</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Зөөврийн компьютер</h3>
+                        <p class="product-description">Өндөр хурдтай процессор, 16GB RAM, 512GB SSD</p>
+                        <div class="rating">⭐⭐⭐⭐⭐ (89 үнэлгээ)</div>
+                        <div class="product-price">
+                            <div>
+                                <span class="price">2,890,000₮</span>
+                            </div>
+                        </div>
+                        <button class="add-to-cart">🛒 Сагсанд нэмэх</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        📱
+                        <span class="product-badge">-25%</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Ухаалаг утас</h3>
+                        <p class="product-description">Сүүлийн үеийн камертай, өндөр чанарын дэлгэцтэй</p>
+                        <div class="rating">⭐⭐⭐⭐☆ (156 үнэлгээ)</div>
+                        <div class="product-price">
+                            <div>
+                                <span class="price">1,499,000₮</span>
+                                <span class="old-price">1,999,000₮</span>
+                            </div>
+                        </div>
+                        <button class="add-to-cart">🛒 Сагсанд нэмэх</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        🎧
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Чихэвч</h3>
+                        <p class="product-description">Дууны чанар өндөр, шуугиан дарагч технологитой</p>
+                        <div class="rating">⭐⭐⭐⭐⭐ (203 үнэлгээ)</div>
+                        <div class="product-price">
+                            <div>
+                                <span class="price">299,000₮</span>
+                            </div>
+                        </div>
+                        <button class="add-to-cart">🛒 Сагсанд нэмэх</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        ⌚
+                        <span class="product-badge">-40%</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Ухаалаг цаг</h3>
+                        <p class="product-description">Эрүүл мэндийн мониторинг, спортын функцууд</p>
+                        <div class="rating">⭐⭐⭐⭐☆ (67 үнэлгээ)</div>
+                        <div class="product-price">
+                            <div>
+                                <span class="price">189,000₮</span>
+                                <span class="old-price">315,000₮</span>
+                            </div>
+                        </div>
+                        <button class="add-to-cart">🛒 Сагсанд нэмэх</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        📚
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Програмчлалын ном</h3>
+                        <p class="product-description">Эхлэгчдэд зориулсан Python програмчлалын гарын авлага</p>
+                        <div class="rating">⭐⭐⭐⭐⭐ (142 үнэлгээ)</div>
+                        <div class="product-price">
+                            <div>
+                                <span class="price">45,000₮</span>
+                            </div>
+                        </div>
+                        <button class="add-to-cart">🛒 Сагсанд нэмэх</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="container">
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🚚</div>
+                    <h3>Үнэгүй хүргэлт</h3>
+                    <p>100,000₮-с дээш захиалгад үнэгүй хүргэнэ</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💳</div>
+                    <h3>Аюулгүй төлбөр</h3>
+                    <p>Төлбөрийн олон төрлийн аргууд дэмжигддэг</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Буцаах баталгаа</h3>
+                    <p>14 хоногийн дотор буцаах боломжтой</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎧</div>
+                    <h3>24/7 дэмжлэг</h3>
+                    <p>Бид танд үргэлж туслахад бэлэн байна</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>MyStore</h3>
+                    <p>Бид чанартай бүтээгдэхүүнийг хүргэх онлайн дэлгүүр. Таны найдвартай түнш.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Холбоосууд</h3>
+                    <ul>
+                        <li><a href="#">Бидний тухай</a></li>
+                        <li><a href="#">Холбоо барих</a></li>
+                        <li><a href="#">Карьер</a></li>
+                        <li><a href="#">Блог</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Тусламж</h3>
+                    <ul>
+                        <li><a href="#">Төлбөрийн нөхцөл</a></li>
+                        <li><a href="#">Хүргэлт</a></li>
+                        <li><a href="#">Буцаалт</a></li>
+                        <li><a href="#">Түгээмэл асуулт</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Холбоо барих</h3>
+                    <ul>
+                        <li>📍 Улаанбаатар хот, Монгол улс</li>
+                        <li>📧 info@mystore.mn</li>
+                        <li>☎️ +976 7777-7777</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MyStore. Бүх эрх хуулиар хамгаалагдсан. | Powered by Odoo</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple cart functionality
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function () {
+                alert('Бүтээгдэхүүн сагсанд нэмэгдлээ! 🛒');
+            });
+        });
+    </script>
+</body>
+
+</html>

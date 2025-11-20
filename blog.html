@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="mn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Миний Блог</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        header h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #764ba2;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .blog-post {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .blog-post:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3em;
+        }
+
+        .blog-content {
+            padding: 25px;
+        }
+
+        .blog-content h2 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+
+        .blog-meta {
+            color: #999;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .blog-meta span {
+            margin-right: 15px;
+        }
+
+        .blog-excerpt {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .read-more {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .read-more:hover {
+            transform: scale(1.05);
+        }
+
+        .sidebar {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .sidebar h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .sidebar li:last-child {
+            border-bottom: none;
+        }
+
+        .sidebar a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #667eea;
+        }
+
+        footer {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            color: #666;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .tag {
+            display: inline-block;
+            background: #f0f0f0;
+            padding: 5px 15px;
+            border-radius: 15px;
+            margin: 5px;
+            font-size: 0.85em;
+            color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav a {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>✨ Миний Блог</h1>
+            <p>Амьдралын тухай бодол санаа, туршлага, мэдлэгээ хуваалцъя</p>
+        </header>
+
+        <nav>
+            <a href="#home">Нүүр</a>
+            <a href="#about">Миний тухай</a>
+            <a href="#blog">Нийтлэлүүд</a>
+            <a href="#contact">Холбоо барих</a>
+        </nav>
+
+        <div class="blog-grid">
+            <article class="blog-post">
+                <div class="blog-image">📝</div>
+                <div class="blog-content">
+                    <h2>Технологийн ертөнцөд тавтай морил</h2>
+                    <div class="blog-meta">
+                        <span>📅 2025-11-20</span>
+                        <span>👤 Админ</span>
+                    </div>
+                    <p class="blog-excerpt">
+                        Орчин үеийн технологи маш хурдацтай хөгжиж байна. Хиймэл оюун ухаан, машин сургалт зэрэг
+                        салбарууд бидний амьдралд томоохон өөрчлөлт авчирч байна. Энэ нийтлэлд технологийн сонирхолтой
+                        мэдээллүүдийг хуваалцах болно.
+                    </p>
+                    <div>
+                        <span class="tag">Технологи</span>
+                        <span class="tag">AI</span>
+                        <span class="tag">Шинэ</span>
+                    </div>
+                    <br><br>
+                    <a href="#" class="read-more">Цааш унших →</a>
+                </div>
+            </article>
+
+            <article class="blog-post">
+                <div class="blog-image">🌍</div>
+                <div class="blog-content">
+                    <h2>Аялал, адал явдал</h2>
+                    <div class="blog-meta">
+                        <span>📅 2025-11-18</span>
+                        <span>👤 Админ</span>
+                    </div>
+                    <p class="blog-excerpt">
+                        Аяллын тухай миний туршлага, зөвлөмж. Монголын үзэсгэлэнт газрууд болон гадаад орнуудаар хийсэн
+                        аялалууд. Аялал нь амьдралын хамгийн үнэтэй туршлагуудын нэг юм.
+                    </p>
+                    <div>
+                        <span class="tag">Аялал</span>
+                        <span class="tag">Байгаль</span>
+                        <span class="tag">Адал явдал</span>
+                    </div>
+                    <br><br>
+                    <a href="#" class="read-more">Цааш унших →</a>
+                </div>
+            </article>
+
+            <article class="blog-post">
+                <div class="blog-image">📚</div>
+                <div class="blog-content">
+                    <h2>Өөрийгөө хөгжүүлэх арга замууд</h2>
+                    <div class="blog-meta">
+                        <span>📅 2025-11-15</span>
+                        <span>👤 Админ</span>
+                    </div>
+                    <p class="blog-excerpt">
+                        Өөрийгөө хөгжүүлэх бол үргэлжилсэн процесс юм. Ном унших, шинэ ур чадвар эзэмшихээс эхлээд эрүүл
+                        амьдралын хэв маягийг төлөвлөх хүртэл олон арга байдаг. Эдгээр арга замуудыг хамтдаа судлаарай.
+                    </p>
+                    <div>
+                        <span class="tag">Хөгжил</span>
+                        <span class="tag">Амьдрал</span>
+                        <span class="tag">Зөвлөмж</span>
+                    </div>
+                    <br><br>
+                    <a href="#" class="read-more">Цааш унших →</a>
+                </div>
+            </article>
+
+            <article class="blog-post">
+                <div class="blog-image">💡</div>
+                <div class="blog-content">
+                    <h2>Бизнес эхлэх нь</h2>
+                    <div class="blog-meta">
+                        <span>📅 2025-11-10</span>
+                        <span>👤 Админ</span>
+                    </div>
+                    <p class="blog-excerpt">
+                        Өөрийн бизнес эхлүүлэх нь сонирхолтой боловч хэцүү замнал юм. Санаанаас эхлээд хэрэгжүүлэх
+                        хүртэлх үе шатууд, анхаарах зүйлс болон миний туршлагаас хуваалцъя.
+                    </p>
+                    <div>
+                        <span class="tag">Бизнес</span>
+                        <span class="tag">Мэргэжил</span>
+                        <span class="tag">Зөвлөмж</span>
+                    </div>
+                    <br><br>
+                    <a href="#" class="read-more">Цааш унших →</a>
+                </div>
+            </article>
+
+            <article class="blog-post">
+                <div class="blog-image">🎨</div>
+                <div class="blog-content">
+                    <h2>Уран бүтээлч сэтгэлгээ</h2>
+                    <div class="blog-meta">
+                        <span>📅 2025-11-05</span>
+                        <span>👤 Админ</span>
+                    </div>
+                    <p class="blog-excerpt">
+                        Бүтээлч сэтгэлгээ хөгжүүлэх нь зөвхөн уран бүтээлчдэд л биш, хүн бүрт хэрэгтэй чадвар юм. Өдөр
+                        тутмын амьдралд уран бүтээлч байх, асуудлыг өөрөөр харах.
+                    </p>
+                    <div>
+                        <span class="tag">Урлаг</span>
+                        <span class="tag">Бүтээлч</span>
+                        <span class="tag">Сэтгэлгээ</span>
+                    </div>
+                    <br><br>
+                    <a href="#" class="read-more">Цааш унших →</a>
+                </div>
+            </article>
+
+            <article class="blog-post">
+                <div class="blog-image">🏃</div>
+                <div class="blog-content">
+                    <h2>Эрүүл амьдралын хэв маяг</h2>
+                    <div class="blog-meta">
+                        <span>📅 2025-11-01</span>
+                        <span>👤 Админ</span>
+                    </div>
+                    <p class="blog-excerpt">
+                        Эрүүл мэндийн тухай бодох, дасгал хөдөлгөөн хийх, зөв хооллох нь амьдралын чанарыг дээшлүүлдэг.
+                        Энгийн боловч үр дүнтэй зөвлөмжүүдийг хуваалцая.
+                    </p>
+                    <div>
+                        <span class="tag">Эрүүл мэнд</span>
+                        <span class="tag">Спорт</span>
+                        <span class="tag">Амьдрал</span>
+                    </div>
+                    <br><br>
+                    <a href="#" class="read-more">Цааш унших →</a>
+                </div>
+            </article>
+        </div>
+
+        <div class="sidebar">
+            <h3>📌 Ангилал</h3>
+            <ul>
+                <li><a href="#">Технологи (5)</a></li>
+                <li><a href="#">Аялал (8)</a></li>
+                <li><a href="#">Амьдралын хэв маяг (12)</a></li>
+                <li><a href="#">Бизнес (6)</a></li>
+                <li><a href="#">Урлаг (4)</a></li>
+            </ul>
+        </div>
+
+        <div class="sidebar">
+            <h3>🔥 Алдартай нийтлэлүүд</h3>
+            <ul>
+                <li><a href="#">Амжилтын 10 зарчим</a></li>
+                <li><a href="#">Python программчлалын эхлэл</a></li>
+                <li><a href="#">Монголын үзэсгэлэнт газрууд</a></li>
+                <li><a href="#">Цагийг үр дүнтэй удирдах</a></li>
+            </ul>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Миний Блог. Бүх эрх хуулиар хамгаалагдсан.</p>
+            <p>💌 Холбоо барих: myblog@example.com</p>
+        </footer>
+    </div>
+</body>
+
+</html>
