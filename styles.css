@@ -328,7 +328,7 @@ body {
 /* Responsive Design */
 @media (max-width: 768px) {
     body {
-        background-position: 90% center;
+        background-position: right center;
     }
 
     .profile-name {
@@ -354,7 +354,7 @@ body {
 @media (max-width: 480px) {
     body {
         padding: 15px;
-        background-position: 90% center;
+        background-position: right center;
     }
 
     .profile-image {
