@@ -327,6 +327,10 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    body {
+        background-position: 65% center;
+    }
+
     .profile-name {
         font-size: 24px;
     }
@@ -350,6 +354,7 @@ body {
 @media (max-width: 480px) {
     body {
         padding: 15px;
+        background-position: 70% center;
     }
 
     .profile-image {
@@ -363,5 +368,19 @@ body {
 
     .link-btn {
         padding: 14px 18px;
+    }
+
+    #theme-toggle {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+    }
+
+    #back-to-top {
+        bottom: 85px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
     }
 }
