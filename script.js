@@ -14,24 +14,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Check for saved theme preference
     const currentTheme = localStorage.getItem('theme') || 'light';
-    if (currentTheme === 'dark') {
-        document.body.classList.add('dark-mode');
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
-    }
 
-    themeToggle.addEventListener('click', function() {
-        document.body.classList.toggle('dark-mode');
-
-        if (document.body.classList.contains('dark-mode')) {
+    function updateTheme(isDark) {
+        if (isDark) {
+            document.body.classList.add('dark-mode');
             themeIcon.classList.remove('fa-moon');
             themeIcon.classList.add('fa-sun');
-            localStorage.setItem('theme', 'dark');
+            // Uncomment the line below if you want different background for dark mode
+            document.body.style.backgroundImage = "url('images/background-dark.jpeg')";
         } else {
+            document.body.classList.remove('dark-mode');
             themeIcon.classList.remove('fa-sun');
             themeIcon.classList.add('fa-moon');
-            localStorage.setItem('theme', 'light');
+            // Uncomment the line below to restore original background
+            document.body.style.backgroundImage = "url('images/background.jpeg')";
         }
+    }
+
+    // Apply saved theme
+    updateTheme(currentTheme === 'dark');
+
+    themeToggle.addEventListener('click', function() {
+        const isDark = !document.body.classList.contains('dark-mode');
+        updateTheme(isDark);
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
     });
 
     // Back to Top Button

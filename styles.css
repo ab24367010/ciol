@@ -39,13 +39,33 @@ body {
     align-items: center;
     padding: 20px;
     color: var(--card-text);
-    transition: background-color 0.3s ease;
+    transition: background-image 0.5s ease, background-color 0.3s ease;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0);
+    transition: background-color 0.5s ease;
+    pointer-events: none;
+    z-index: 0;
+}
+
+body.dark-mode::before {
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .container {
     max-width: 680px;
     width: 100%;
     animation: fadeIn 0.8s ease-in;
+    position: relative;
+    z-index: 1;
 }
 
 /* Profile Section */
@@ -331,6 +351,16 @@ body {
         background-position: right center;
     }
 
+    /* Uncomment below to use different backgrounds on tablets
+    body {
+        background-image: url(images/background-tablet.jpeg);
+    }
+
+    body.dark-mode {
+        background-image: url(images/background-tablet-dark.jpeg);
+    }
+    */
+
     .profile-name {
         font-size: 24px;
     }
@@ -356,6 +386,16 @@ body {
         padding: 15px;
         background-position: right center;
     }
+
+    /* Uncomment below to use different backgrounds on mobile
+    body {
+        background-image: url(images/background-mobile.jpeg);
+    }
+
+    body.dark-mode {
+        background-image: url(images/background-mobile-dark.jpeg);
+    }
+    */
 
     .profile-image {
         width: 100px;
