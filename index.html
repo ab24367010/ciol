@@ -4,17 +4,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ciol Ft</title>
+
+    <!-- SEO Meta Tags -->
+    <title>Batkhishig Altanochir | CIOL_FT - Portfolio & Links</title>
+    <meta name="description" content="Tokyo-based IoT + AI Student, Cybersecurity Explorer & Game Developer. Follow my journey in tech, creativity, and self-improvement.">
+    <meta name="keywords" content="Batkhishig Altanochir, CIOL_FT, IoT, AI, Cybersecurity, Game Developer, Tokyo, Portfolio">
+    <meta name="author" content="Batkhishig Altanochir">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ciol.mn/">
+    <meta property="og:title" content="Batkhishig Altanochir | CIOL_FT">
+    <meta property="og:description" content="Tokyo-based IoT + AI Student, Cybersecurity Explorer & Game Developer. Always improving by 1% daily.">
+    <meta property="og:image" content="https://ciol.mn/images/profile.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ciol.mn/">
+    <meta property="twitter:title" content="Batkhishig Altanochir | CIOL_FT">
+    <meta property="twitter:description" content="Tokyo-based IoT + AI Student, Cybersecurity Explorer & Game Developer.">
+    <meta property="twitter:image" content="https://ciol.mn/images/profile.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/profile.jpg">
+    <link rel="apple-touch-icon" href="images/profile.jpg">
+
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
     <div class="container">
+        <!-- Loading Screen -->
+        <div id="loading-screen">
+            <div class="loader"></div>
+        </div>
+
         <!-- Profile Section -->
         <div class="profile">
             <div class="profile-image">
-                <img src="images/profile.jpg" alt="Profile Picture">
+                <img src="images/profile.jpg" alt="Batkhishig Altanochir Profile Picture" loading="lazy">
             </div>
             <h1 class="profile-name">BATKHISHIG ALTANOCHIR</h1>
 
@@ -102,6 +132,16 @@
             <p>© CIOL_FT 2025</p>
         </div>
     </div>
+
+    <!-- Dark Mode Toggle -->
+    <button id="theme-toggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <script src="script.js"></script>
 </body>
